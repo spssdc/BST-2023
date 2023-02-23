@@ -15,6 +15,17 @@ namespace BST
             cities.insert("Brighton");
             cities.inOrder();
             string x = Console.ReadLine();
+            if (cities.find("York")){
+                Console.WriteLine("York is present");
+            }
+            if (cities.find("Instanbul"))
+            {
+                Console.WriteLine("Istanbul is present");
+            }
+            else
+            {
+                Console.WriteLine("Istanbul is NOT present");
+            }
         }
     }
 }

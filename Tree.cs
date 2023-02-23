@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BST
 {
-    class Tree
+    public class Tree
     {
         // Tree has a root, initially null.
         Node rootPtr;
@@ -72,6 +72,36 @@ namespace BST
                 }
             }
 
+        }
+
+        public bool find(string value)
+        {
+            return find(value, this.rootPtr);
+        }
+
+        private bool find(string value, Node current)
+        {
+            if (current == null)
+            {
+                return false;
+            }
+            else
+            {
+                int compareTo = value.CompareTo(current.data);
+                if (compareTo == 0)
+                {
+                    return true;
+                }
+                else if (compareTo < 0)  // left
+                {
+                    return find(value, current.left);
+                }
+                else if (compareTo > 0) // right
+                {
+                    return find(value, current.right);
+                }
+            }
+            return false;
         }
 
         public void inOrder()
