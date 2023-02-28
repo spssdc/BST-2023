@@ -10,7 +10,7 @@ namespace BST
         Node rootPtr;
 
         // Internal node class hidden from external code, only visible in Tree
-        internal class Node
+        public class Node
         {
             public string data { get; set; }
             public Node left { get; set; }
@@ -118,5 +118,33 @@ namespace BST
                 inOrder(current.right);
             }
         }
+
+        /*
+
+        public void BFS()
+        {
+            if (this.rootPtr != null){
+                BFS(this.rootPtr);
+            }
+        }
+
+        private void BFS(Node current)
+        {
+            Queue<Node> q = new Queue<Node>();
+            while (current != null) { 
+                Console.WriteLine(current.data);
+                if (current.left != null)
+                {
+                    q.Enqueue(current.left);
+                }
+                if (Current.right != null)
+                {
+                    q.Enqueue(current.right);
+                }
+                q.Dequeue();
+            }
+        }
+
+        */
     }
 }
