@@ -10,7 +10,7 @@ namespace BST
         Node rootPtr;
 
         // Internal node class hidden from external code, only visible in Tree
-        public class Node
+        internal class Node
         {
             public string data { get; set; }
             public Node left { get; set; }
@@ -139,7 +139,12 @@ namespace BST
                 {
                     q.Enqueue(current.right);
                 }
-                q.Dequeue();
+                // Use TryDequeue to test for values in queue
+                if (!q.TryDequeue(out current))
+                {
+                    current = null;
+                }
+
             }
         }
 
