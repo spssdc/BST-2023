@@ -135,7 +135,7 @@ namespace BST
                 {
                     q.Enqueue(current.left);
                 }
-                if (Current.right != null)
+                if (current.right != null)
                 {
                     q.Enqueue(current.right);
                 }
