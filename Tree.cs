@@ -119,8 +119,6 @@ namespace BST
             }
         }
 
-        /*
-
         public void BFS()
         {
             if (this.rootPtr != null){
@@ -145,6 +143,5 @@ namespace BST
             }
         }
 
-        */
     }
 }

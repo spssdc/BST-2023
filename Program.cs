@@ -27,7 +27,7 @@ namespace BST
                 Console.WriteLine("Istanbul is NOT present");
             }
             Console.WriteLine("BFS");
-            // cities.BFS();
+            cities.BFS();
         }
     }
 }
