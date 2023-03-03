@@ -9,10 +9,10 @@ namespace BST
         static void Main(string[] args)
         {
             Console.WriteLine("TREE class testing");
-            //                   London
-            //            Inverness   Manchester
-            //        Brighton             York
-            //   Aberdeen   Bristol
+            //                             London
+            //                Inverness               Manchester
+            //        Brighton          Kingston                     York
+            //   Aberdeen  Bristol   Keswick   Leicester
             Tree cities = new Tree();
             cities.insert("London");
             cities.insert("Inverness");
@@ -21,6 +21,10 @@ namespace BST
             cities.insert("Brighton");
             cities.insert("Aberdeen");
             cities.insert("Bristol");
+            cities.insert("Kingston");
+            cities.insert("Keswick");
+            cities.insert("Leicester");
+            cities.delete("Inverness");
             Console.WriteLine("\nMax depth: "+cities.maxDepth()+"\n");
             Console.WriteLine("\nNum nodes: " + cities.Count() + "\n");
             Console.WriteLine("\nInorder Traversal\n");

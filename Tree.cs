@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -71,6 +73,104 @@ namespace BST
                 }
             }
 
+        }
+
+        public  void delete(string value)
+        {
+            Node current = this.rootPtr;
+            Node previous = null;
+            while (current != null && current.data != value)
+            {
+                previous = current;
+                if (value.CompareTo(current.data) < 0) // Left
+                {
+                    current = current.left;
+                }
+                else
+                {
+                    current = current.right;
+                }
+            }
+            if (current == null)  // item to delete not found
+            {
+                Console.WriteLine("Not found");
+            }
+            else // delete node
+            {
+                // Case 1: node to delete is a leaf node
+                if (current.left == null && current.right == null)
+                {
+                    if (current.data.CompareTo(previous.data) < 0) // left leaf
+                    {
+                        previous.left = null;
+                        current = null;
+                    }
+                    else
+                    {
+                        previous.right = null;
+                        current = null;
+                    }
+                }
+                // Case 2a: Node to delete has a single child node
+                // single right child of current (as left is null)
+                else if (current.left == null) 
+                {
+                    // current node to delete is < previous, so left of previous
+                    if (current.data.CompareTo(previous.data) < 0) // left of parent
+                    {
+                        previous.left = current.right;
+                        current = null;
+                    }
+                    // current node to delete is > previous, so right of previous
+                    else
+                    {
+                        previous.right = current.right;
+                        current = null;
+                    }
+                }
+                // Case 2b: Node to delete has a single child node
+                // single right child of current (as left is null)
+                else if (current.right == null) // single left child
+                {
+                    // current node to delete is < previous, so left of previous
+                    if (current.data.CompareTo(previous.data) < 0) // left of parent
+                    {
+                        previous.left = current.left;
+                        current = null;
+                    }
+                    // current node to delete is > previous, so right of previous
+                    else
+                    {
+                        previous.right = current.left;
+                        current = null;
+                    }
+                }
+                // Case 3: 2 child nodes
+                // Locate the successor (next largest) node
+                else
+                {
+                    Node successor = current.right;
+                    previous = current;
+                    while (successor.left != null)
+                    {
+                        previous = successor;
+                        successor = successor.left;
+                    }
+                    // Is successor a leaf? If so, straight replace
+                    if (successor.right == null)
+                    {
+                        current.data = successor.data;
+                        previous.left = null;
+                        successor = null;
+                    }
+                    // There is a right subtree, so link previous to right child
+                    else
+                    {
+                        current.data = successor.data;
+                        previous.left = successor.right;
+                    }
+                }
+            }
         }
 
         public bool find(string value)
