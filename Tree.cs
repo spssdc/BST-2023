@@ -9,194 +9,186 @@ namespace BST
     public class Tree
     {
         // Tree has a root, initially null.
-        Node rootPtr;
+        Node RootPtr;
 
         // Internal node class hidden from external code, only visible in Tree
         internal class Node
         {
-            public string data { get; set; }
-            public Node left { get; set; }
-            public Node right { get; set; }
+            public string Data { get; set; }
+            public Node Left { get; set; }
+            public Node Right { get; set; }
 
             public Node(string Value)
             {
-                this.data = Value;
-                this.left = null;
-                this.right = null;
+                this.Data = Value;
+                this.Left = null;
+                this.Right = null;
             }
         }
 
         // Tree initialised as a null root value
         public Tree()
         {
-            this.rootPtr = null;
+            this.RootPtr = null;
         }
 
-        // public facing insert method takes one value
-        public void insert(string value)
+        // public facing Insert method takes one value
+        public void Insert(string value)
         {
-            // call internal private method, overloading the insert with 2 parameters
-            if (this.rootPtr == null)
+            // call internal private method, overloading the Insert with 2 parameters
+            if (this.RootPtr == null)
             {
-                this.rootPtr = new Node(value);
+                this.RootPtr = new Node(value);
             }
             else
             {
-                insert(value, this.rootPtr);
+                Insert(value, this.RootPtr);
             }
         }
-        private void insert(string value, Node current)
+        private void Insert(string value, Node Current)
         {
-            int compareTo = value.CompareTo(current.data);
-            if (compareTo < 0)  // left
+            int compareTo = value.CompareTo(Current.Data);
+            if (compareTo < 0)  // Left
             {
-                if (current.left == null)
+                if (Current.Left == null)
                 {
                     Node newNode = new Node(value);
-                    current.left = newNode;
+                    Current.Left = newNode;
                 }
                 else
                 {
-                    insert(value, current.left);
+                    Insert(value, Current.Left);
                 }
             }
-            else if (compareTo > 0) // right
+            else if (compareTo > 0) // Right
             {
-                if (current.right == null)
+                if (Current.Right == null)
                 {
                     Node newNode = new Node(value);
-                    current.right = newNode;
+                    Current.Right = newNode;
                 }
                 else
                 {
-                    insert(value, current.right);
+                    Insert(value, Current.Right);
                 }
             }
 
         }
 
-        public  void delete(string value)
+        public  void Delete(string value)
         {
-            Node current = this.rootPtr;
-            Node previous = null;
-            while (current != null && current.data != value)
+            Node Current = this.RootPtr;
+            Node Previous = null;
+            while (Current != null && Current.Data != value)
             {
-                previous = current;
-                if (value.CompareTo(current.data) < 0) // Left
+                Previous = Current;
+                if (value.CompareTo(Current.Data) < 0) // Left
                 {
-                    current = current.left;
+                    Current = Current.Left;
                 }
                 else
                 {
-                    current = current.right;
+                    Current = Current.Right;
                 }
             }
-            if (current == null)  // item to delete not found
+            if (Current == null)  // item to Delete not found
             {
                 Console.WriteLine("Not found");
             }
-            else // delete node
+            else // Delete node
             {
-                // Case 1: node to delete is a leaf node
-                if (current.left == null && current.right == null)
+                // Case 1: node to Delete is a leaf node
+                if (Current.Left == null && Current.Right == null)
                 {
-                    if (current.data.CompareTo(previous.data) < 0) // left leaf
+                    if (Current.Data.CompareTo(Previous.Data) < 0) // Left leaf
                     {
-                        previous.left = null;
-                        current = null;
+                        Previous.Left = null;
                     }
                     else
                     {
-                        previous.right = null;
-                        current = null;
+                        Previous.Right = null;
                     }
                 }
-                // Case 2a: Node to delete has a single child node
-                // single right child of current (as left is null)
-                else if (current.left == null) 
+                // Case 2a: Node to Delete has a single child node
+                // single Right child of Current (as Left is null)
+                else if (Current.Left == null) 
                 {
-                    // current node to delete is < previous, so left of previous
-                    if (current.data.CompareTo(previous.data) < 0) // left of parent
+                    // Current node to Delete is < Previous, so Left of Previous
+                    if (Current.Data.CompareTo(Previous.Data) < 0) // Left of parent
                     {
-                        previous.left = current.right;
-                        current = null;
+                        Previous.Left = Current.Right;
                     }
-                    // current node to delete is > previous, so right of previous
+                    // Current node to Delete is > Previous, so Right of Previous
                     else
                     {
-                        previous.right = current.right;
-                        current = null;
+                        Previous.Right = Current.Right;
                     }
                 }
-                // Case 2b: Node to delete has a single child node
-                // single right child of current (as left is null)
-                else if (current.right == null) // single left child
+                // Case 2b: Node to Delete has a single child node
+                // single Right child of Current (as Left is null)
+                else if (Current.Right == null) // single Left child
                 {
-                    // current node to delete is < previous, so left of previous
-                    if (current.data.CompareTo(previous.data) < 0) // left of parent
+                    // Current node to Delete is < Previous, so Left of Previous
+                    if (Current.Data.CompareTo(Previous.Data) < 0) // Left of parent
                     {
-                        previous.left = current.left;
-                        current = null;
+                        Previous.Left = Current.Left;
                     }
-                    // current node to delete is > previous, so right of previous
+                    // Current node to Delete is > Previous, so Right of Previous
                     else
                     {
-                        previous.right = current.left;
-                        current = null;
+                        Previous.Right = Current.Left;
                     }
                 }
                 // Case 3: 2 child nodes
-                // Locate the successor (next largest) node
+                // Locate the Successor (next largest) node
                 else
                 {
-                    Node successor = current.right;
-                    previous = current;
-                    while (successor.left != null)
+                    Node Successor = Current.Right;
+                    Previous = Current;
+                    while (Successor.Left != null)
                     {
-                        previous = successor;
-                        successor = successor.left;
+                        Previous = Successor;
+                        Successor = Successor.Left;
                     }
-                    // Is successor a leaf? If so, straight replace
-                    if (successor.right == null)
+                    // Is Successor a leaf? If so, straight replace
+                    if (Successor.Right == null)
                     {
-                        current.data = successor.data;
-                        previous.left = null;
-                        successor = null;
+                        Current.Data = Successor.Data;
+                        Previous.Left = null;
                     }
-                    // There is a right subtree, so link previous to right child
+                    // There is a Right subtree, so link Previous to Right child
                     else
                     {
-                        current.data = successor.data;
-                        previous.left = successor.right;
+                        Current.Data = Successor.Data;
+                        Previous.Left = Successor.Right;
                     }
                 }
             }
         }
 
-        public bool find(string value)
+        public bool Find(string value)
         {
-            return find(value, this.rootPtr);
+            return Find(value, this.RootPtr);
         }
-        private bool find(string value, Node current)
+        private bool Find(string value, Node Current)
         {
-            if (current == null)
+            if (Current == null)
             {
                 return false;
             }
             else
             {
-                int compareTo = value.CompareTo(current.data);
-                if (compareTo == 0)
+                if (value.CompareTo(Current.Data) == 0) // Equal
                 {
                     return true;
                 }
-                else if (compareTo < 0)  // left
+                else if (value.CompareTo(Current.Data) < 0)  // Left
                 {
-                    return find(value, current.left);
+                    return Find(value, Current.Left);
                 }
-                else if (compareTo > 0) // right
+                else if (value.CompareTo(Current.Data) > 0) // Right
                 {
-                    return find(value, current.right);
+                    return Find(value, Current.Right);
                 }
             }
             return false;
@@ -204,73 +196,73 @@ namespace BST
 
         public int Count()
         {
-            return Count(this.rootPtr);
+            return Count(this.RootPtr);
         }
-        private int Count(Node current)
+        private int Count(Node Current)
         {
-            if (current == null)
+            if (Current == null)
             {
                 return 0;
             }
             else
             {
-                return 1 + Count(current.left) + Count(current.right);
+                return 1 + Count(Current.Left) + Count(Current.Right);
             }
         }
-
-        public int maxDepth()
+        
+        public int Depth()
         {
-            return maxDepth(this.rootPtr);
+            return Depth(this.RootPtr);
         }
-        private int maxDepth(Node current)
+        private int Depth(Node Current)
         {
-            if (current == null)
+            if (Current == null)
             {
                 return 0;
             }
             else
             {
-                return 1 + Math.Max(maxDepth(current.left), maxDepth(current.right));
+                return 1 + Math.Max(Depth(Current.Left), Depth(Current.Right));
             }
         }
 
-        public void inOrder()
+        public void InOrder()
         {
-            inOrder(this.rootPtr);
+            InOrder(this.RootPtr);
         }
-        private void inOrder(Node current)
+        private void InOrder(Node Current)
         {
-            if (current != null)
+            if (Current != null)
             {
-                inOrder(current.left);
-                Console.WriteLine(current.data);
-                inOrder(current.right);
+                InOrder(Current.Left);
+                Console.WriteLine(Current.Data);
+                InOrder(Current.Right);
             }
         }
 
         public void BFS()
         {
-            if (this.rootPtr != null){
-                BFS(this.rootPtr);
+            if (this.RootPtr != null){
+                BFS(this.RootPtr);
             }
         }
-        private void BFS(Node current)
+        private void BFS(Node Current)
         {
-            Queue<Node> q = new Queue<Node>();
-            while (current != null) { 
-                Console.WriteLine(current.data);
-                if (current.left != null)
+            Queue<Node> Q = new Queue<Node>();
+            while (Current != null) { 
+                Console.WriteLine(Current.Data);
+                if (Current.Left != null)
                 {
-                    q.Enqueue(current.left);
+                    Q.Enqueue(Current.Left);
                 }
-                if (current.right != null)
+                if (Current.Right != null)
                 {
-                    q.Enqueue(current.right);
+                    Q.Enqueue(Current.Right);
                 }
                 // Use TryDequeue to test for values in queue
-                if (!q.TryDequeue(out current))
+                if (!Q.TryDequeue(out Current))
                 {
-                    current = null;
+                    Current = null;
                 }
 
             }
