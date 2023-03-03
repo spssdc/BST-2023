@@ -8,15 +8,23 @@ namespace BST
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("TREE class testing");
+            //                   London
+            //            Inverness   Manchester
+            //        Brighton             York
+            //   Aberdeen   Bristol
             Tree cities = new Tree();
             cities.insert("London");
             cities.insert("Inverness");
             cities.insert("Manchester");
             cities.insert("York");
             cities.insert("Brighton");
+            cities.insert("Aberdeen");
+            cities.insert("Bristol");
+            Console.WriteLine("\nMax depth: "+cities.maxDepth()+"\n");
+            Console.WriteLine("\nNum nodes: " + cities.Count() + "\n");
+            Console.WriteLine("\nInorder Traversal\n");
             cities.inOrder();
-            string x = Console.ReadLine();
             if (cities.find("York")){
                 Console.WriteLine("York is present");
             }
@@ -28,7 +36,7 @@ namespace BST
             {
                 Console.WriteLine("Istanbul is NOT present");
             }
-            Console.WriteLine("BFS");
+            Console.WriteLine("\nBFS\n");
             cities.BFS();
         }
     }

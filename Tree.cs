@@ -24,7 +24,7 @@ namespace BST
             }
         }
 
-        // Tree initiallt has a null root value
+        // Tree initialised as a null root value
         public Tree()
         {
             this.rootPtr = null;
@@ -43,7 +43,6 @@ namespace BST
                 insert(value, this.rootPtr);
             }
         }
-
         private void insert(string value, Node current)
         {
             int compareTo = value.CompareTo(current.data);
@@ -78,7 +77,6 @@ namespace BST
         {
             return find(value, this.rootPtr);
         }
-
         private bool find(string value, Node current)
         {
             if (current == null)
@@ -104,11 +102,42 @@ namespace BST
             return false;
         }
 
+        public int Count()
+        {
+            return Count(this.rootPtr);
+        }
+        private int Count(Node current)
+        {
+            if (current == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1 + Count(current.left) + Count(current.right);
+            }
+        }
+
+        public int maxDepth()
+        {
+            return maxDepth(this.rootPtr);
+        }
+        private int maxDepth(Node current)
+        {
+            if (current == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1 + Math.Max(maxDepth(current.left), maxDepth(current.right));
+            }
+        }
+
         public void inOrder()
         {
             inOrder(this.rootPtr);
         }
-
         private void inOrder(Node current)
         {
             if (current != null)
@@ -125,7 +154,6 @@ namespace BST
                 BFS(this.rootPtr);
             }
         }
-
         private void BFS(Node current)
         {
             Queue<Node> q = new Queue<Node>();
